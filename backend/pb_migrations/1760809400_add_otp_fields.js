@@ -1,7 +1,7 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
-    const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
+    const dao = new Dao(db)
+    const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
 
     // Add OTP code field
     collection.schema.addField(new SchemaField({
@@ -17,7 +17,7 @@ migrate((db) => {
             "max": null,
             "pattern": ""
         }
-    }));
+    }))
 
     // Add OTP expiry field
     collection.schema.addField(new SchemaField({
@@ -28,7 +28,7 @@ migrate((db) => {
         "required": false,
         "presentable": false,
         "options": {}
-    }));
+    }))
 
     // Add email verified field
     collection.schema.addField(new SchemaField({
@@ -39,17 +39,16 @@ migrate((db) => {
         "required": false,
         "presentable": false,
         "options": {}
-    }));
+    }))
 
-    return dao.saveCollection(collection);
+    return dao.saveCollection(collection)
 }, (db) => {
-    // This function runs when the migration is rolled back
-    const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
+    const dao = new Dao(db)
+    const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
 
-    collection.schema.removeField('otp_code');
-    collection.schema.removeField('otp_expires_at');
-    collection.schema.removeField('email_verified');
+    collection.schema.removeField("otp_code")
+    collection.schema.removeField("otp_expires_at")
+    collection.schema.removeField("email_verified")
 
-    return dao.saveCollection(collection);
-});
+    return dao.saveCollection(collection)
+})

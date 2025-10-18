@@ -1,7 +1,7 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
-    const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
+    const dao = new Dao(db)
+    const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
 
     // Add password reset OTP code field
     collection.schema.addField(new SchemaField({
@@ -17,7 +17,7 @@ migrate((db) => {
             "max": null,
             "pattern": ""
         }
-    }));
+    }))
 
     // Add password reset OTP expiry field
     collection.schema.addField(new SchemaField({
@@ -28,16 +28,15 @@ migrate((db) => {
         "required": false,
         "presentable": false,
         "options": {}
-    }));
+    }))
 
-    return dao.saveCollection(collection);
+    return dao.saveCollection(collection)
 }, (db) => {
-    // This function runs when the migration is rolled back
-    const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
+    const dao = new Dao(db)
+    const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
 
-    collection.schema.removeField('password_reset_otp');
-    collection.schema.removeField('password_reset_otp_expires_at');
+    collection.schema.removeField("password_reset_otp")
+    collection.schema.removeField("password_reset_otp_expires_at")
 
-    return dao.saveCollection(collection);
-});
+    return dao.saveCollection(collection)
+})
