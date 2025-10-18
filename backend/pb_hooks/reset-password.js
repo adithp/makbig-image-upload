@@ -36,8 +36,8 @@ onAfterRequest((e) => {
         // Verify that OTP was recently verified (optional security check)
         // This ensures the password reset is being done in the correct flow
 
-        // Update user's password
-        user.password = newPassword;
+        // Update user's password using PocketBase's setPassword method
+        await dao.setRecordPassword(user, newPassword);
 
         // Clear password reset OTP fields
         user.password_reset_otp = null;

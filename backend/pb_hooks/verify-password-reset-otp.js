@@ -41,7 +41,7 @@ onAfterRequest((e) => {
             return sendError(e, 400, 'OTP has expired. Please request a new one');
         }
 
-        // OTP is valid, return success with temporary token for password reset
+        // OTP is valid, return success
         e.responseCode = 200;
         e.responseHeaders = {
             'Content-Type': 'application/json'
@@ -49,8 +49,7 @@ onAfterRequest((e) => {
         e.response = JSON.stringify({
             success: true,
             message: 'OTP verified successfully',
-            userId: user.id,
-            resetToken: $generateResetToken(user.id) // This would be implemented based on your needs
+            userId: user.id
         });
     } catch (err) {
         console.error('Error in verify-password-reset-otp hook:', err);
