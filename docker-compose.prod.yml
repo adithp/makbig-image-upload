@@ -1,0 +1,66 @@
+version: '3.8'
+
+# Production Docker Compose Configuration
+# Use this for production deployments with domain and SSL
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: makbig-backend-prod
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend/pb_data:/app/pb_data
+      - ./backend/pb_migrations:/app/pb_migrations
+    environment:
+      - POCKETBASE_PORT=8090
+    restart: always
+    networks:
+      - makbig-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  frontend:
+    build:
+      context: ./frontent
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_POCKETBASE_URL=${REACT_APP_POCKETBASE_URL}
+    container_name: makbig-frontend-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: always
+    networks:
+      - makbig-network
+    environment:
+      - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  makbig-network:
+    driver: bridge
+
+volumes:
+  pb_data:
+    driver: local
+  pb_migrations:
+    driver: local

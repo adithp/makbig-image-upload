@@ -1,0 +1,16 @@
+# Exclude Windows executables and archives
+*.exe
+*.zip
+pocketbase_*_windows_*
+
+# Exclude documentation
+*.md
+
+# Exclude setup scripts
+*.ps1
+*.js
+
+# Keep only Linux binary and essential files
+!pocketbase
+!pb_data/
+!pb_migrations/

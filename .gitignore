@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -21,3 +22,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# PocketBase data (keep migrations, ignore data)
+backend/pb_data/data.db*
+backend/pb_data/logs.db*
+backend/pb_data/backups/
+
+# PocketBase executables and archives
+*.exe
+*.zip
+pocketbase
+pocketbase_*
+
+# Docker volumes
+docker-compose.override.yml

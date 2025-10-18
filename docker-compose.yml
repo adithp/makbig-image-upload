@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # PocketBase Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: makbig-backend
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend/pb_data:/app/pb_data
+      - ./backend/pb_migrations:/app/pb_migrations
+    environment:
+      - POCKETBASE_PORT=8090
+    restart: unless-stopped
+    networks:
+      - makbig-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # React Frontend Service
+  frontend:
+    build:
+      context: ./frontent
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_POCKETBASE_URL=http://backend:8090
+    container_name: makbig-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - makbig-network
+    environment:
+      - NODE_ENV=production
+
+networks:
+  makbig-network:
+    driver: bridge
+
+volumes:
+  pb_data:
+  pb_migrations:
