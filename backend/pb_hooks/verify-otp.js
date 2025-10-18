@@ -7,7 +7,7 @@
  * Verifies the OTP code and marks email as verified
  */
 
-onAfterRequest((e) => {
+onAfterRequest(async (e) => {
     if (e.httpMethod !== 'POST' || e.url !== '/api/collections/users/verify-otp') {
         return;
     }

@@ -7,7 +7,7 @@
  * Generates an OTP and sends it to the user's email
  */
 
-onAfterRequest((e) => {
+onAfterRequest(async (e) => {
     if (e.httpMethod !== 'POST' || e.url !== '/api/collections/users/request-otp') {
         return;
     }

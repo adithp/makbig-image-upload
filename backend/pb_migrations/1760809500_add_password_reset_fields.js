@@ -1,7 +1,7 @@
 /// <reference path="../pb_data/types.d.ts" />
-migrate(async (db) => {
+migrate((db) => {
     const dao = new Dao(db);
-    const collection = await dao.findCollectionByNameOrId('users');
+    const collection = dao.findCollectionByNameOrId('users');
 
     // Add password reset OTP code field
     collection.schema.addField(new SchemaField({
@@ -30,14 +30,14 @@ migrate(async (db) => {
         options: {}
     }));
 
-    return await dao.saveCollection(collection);
+    return dao.saveCollection(collection);
 }, (db) => {
     // This function runs when the migration is rolled back
     const dao = new Dao(db);
-    const collection = await dao.findCollectionByNameOrId('users');
+    const collection = dao.findCollectionByNameOrId('users');
 
     collection.schema.removeField('password_reset_otp');
     collection.schema.removeField('password_reset_otp_expires_at');
 
-    return await dao.saveCollection(collection);
+    return dao.saveCollection(collection);
 });

@@ -5,7 +5,7 @@
  * Endpoint: POST /api/collections/users/reset-password
  */
 
-onAfterRequest((e) => {
+onAfterRequest(async (e) => {
     if (e.httpMethod !== 'POST' || e.url !== '/api/collections/users/reset-password') {
         return;
     }
