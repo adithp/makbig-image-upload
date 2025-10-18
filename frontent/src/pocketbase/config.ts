@@ -108,7 +108,7 @@ export const dbHelpers = {
       const filter = userId ? `student_id = "${userId}"` : '';
       const uploads = await pb.collection('uploads').getFullList({
         filter,
-        sort: '-uploaded_at'
+        sort: '-created'
       });
       return uploads;
     } catch (error) {
@@ -117,19 +117,18 @@ export const dbHelpers = {
     }
   },
 
-  // Get all uploads (admin)
-  async getAllUploads() {
-    try {
-      const uploads = await pb.collection('uploads').getFullList({
-        sort: '-uploaded_at',
-        expand: 'student_id'
-      });
-      return uploads;
-    } catch (error) {
-      console.error('Error fetching all uploads:', error);
-      throw error;
-    }
-  },
+// Get all uploads (admin)
+async getAllUploads() {
+  try {
+    const uploads = await pb.collection('uploads').getFullList({
+      sort: '-created'
+    });
+    return uploads;
+  } catch (error) {
+    console.error('Error fetching all uploads:', error);
+    throw error;
+  }
+},
 
   // Add upload
   async addUpload(studentId: string, imageUrl: string, week: number, domain: string) {
