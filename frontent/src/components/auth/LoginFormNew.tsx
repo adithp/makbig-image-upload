@@ -96,7 +96,6 @@ const LoginFormNew: React.FC = () => {
           onVerify={handleOTPVerify}
           onResend={handleOTPResend}
           onCancel={handleOTPCancel}
-          errorMessage={error}
         />
       </div>
     );

@@ -155,7 +155,6 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ onBack }) => {
           onVerify={handleOTPVerify}
           onResend={handleResend}
           onCancel={() => setStep("email")}
-          errorMessage={error}
         />
       </div>
     );
