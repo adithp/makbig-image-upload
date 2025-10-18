@@ -1,7 +1,7 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
     const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('users');
+    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
 
     // Add OTP code field
     collection.schema.addField(new SchemaField({
@@ -45,7 +45,7 @@ migrate((db) => {
 }, (db) => {
     // This function runs when the migration is rolled back
     const dao = new Dao(db);
-    const collection = dao.findCollectionByNameOrId('users');
+    const collection = dao.findCollectionByNameOrId('_pb_users_auth_');
 
     collection.schema.removeField('otp_code');
     collection.schema.removeField('otp_expires_at');
