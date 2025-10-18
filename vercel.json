@@ -1,29 +1,6 @@
 {
-  "version": 2,
-  "name": "makbig-academy",
-  "builds": [
-    {
-      "src": "frontent/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "buildCommand": "cd frontent && npm install && npm run build",
-  "outputDirectory": "frontent/build",
-  "framework": "create-react-app",
-  "installCommand": "cd frontent && npm install"
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm install",
+  "framework": "create-react-app"
 }
