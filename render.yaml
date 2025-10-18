@@ -1,0 +1,38 @@
+services:
+  # Backend Service (PocketBase)
+  - type: web
+    name: makbig-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8090
+    disk:
+      name: pocketbase-data
+      mountPath: /app/pb_data
+      sizeGB: 1
+
+  # Frontend Service (React)
+  - type: web
+    name: makbig-frontend
+    env: static
+    buildCommand: cd frontent && npm install && npm run build
+    staticPublishPath: ./frontent/build
+    plan: free
+    envVars:
+      - key: REACT_APP_POCKETBASE_URL
+        value: https://makbig-backend.onrender.com
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
