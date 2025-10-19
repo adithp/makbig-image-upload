@@ -8,9 +8,10 @@ pocketbase_*_windows_*
 
 # Exclude setup scripts
 *.ps1
-*.js
+setup.js
 
 # Keep only Linux binary and essential files
 !pocketbase
 !pb_data/
 !pb_migrations/
+!pb_hooks/

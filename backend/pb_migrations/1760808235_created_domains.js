@@ -34,7 +34,7 @@ migrate((db) => {
     "options": {}
   });
 
-  return Dao(db).saveCollection(collection);
+  return new Dao(db).saveCollection(collection);
 }, (db) => {
   const dao = new Dao(db);
   const collection = dao.findCollectionByNameOrId("3877s5dvnxtco4w");
