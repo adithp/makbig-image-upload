@@ -1,10 +1,10 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
-  const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
+  const dao = new Dao(db);
+  const collection = dao.findCollectionByNameOrId("_pb_users_auth_");
 
   // remove
-  collection.schema.removeField("users_avatar")
+  collection.schema.removeField("users_avatar");
 
   // add
   collection.schema.addField(new SchemaField({
@@ -22,7 +22,7 @@ migrate((db) => {
         "admin"
       ]
     }
-  }))
+  }));
 
   // add
   collection.schema.addField(new SchemaField({
@@ -38,7 +38,7 @@ migrate((db) => {
       "max": null,
       "pattern": ""
     }
-  }))
+  }));
 
   // update
   collection.schema.addField(new SchemaField({
@@ -54,12 +54,12 @@ migrate((db) => {
       "max": null,
       "pattern": ""
     }
-  }))
+  }));
 
-  return dao.saveCollection(collection)
+  return dao.saveCollection(collection);
 }, (db) => {
-  const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("_pb_users_auth_")
+  const dao = new Dao(db);
+  const collection = dao.findCollectionByNameOrId("_pb_users_auth_");
 
   // add
   collection.schema.addField(new SchemaField({
@@ -83,13 +83,13 @@ migrate((db) => {
       "maxSize": 5242880,
       "protected": false
     }
-  }))
+  }));
 
   // remove
-  collection.schema.removeField("8koaania")
+  collection.schema.removeField("8koaania");
 
   // remove
-  collection.schema.removeField("uzoxdxp0")
+  collection.schema.removeField("uzoxdxp0");
 
   // update
   collection.schema.addField(new SchemaField({
@@ -105,7 +105,7 @@ migrate((db) => {
       "max": null,
       "pattern": ""
     }
-  }))
+  }));
 
-  return dao.saveCollection(collection)
-})
+  return dao.saveCollection(collection);
+});
